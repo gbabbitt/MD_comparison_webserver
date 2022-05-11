@@ -20,6 +20,7 @@ NOTE: This webserver will run on Linux, so it is simpler to develop and test it 
 
 install Oracle VirtualBox and follow its instructions to build your VM using a Linux Mint .vdi file from osboxes.org
 https://www.virtualbox.org/
+and
 https://www.osboxes.org/
 
 the user and password will both be osboxes.org
