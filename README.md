@@ -32,10 +32,13 @@ the user and password will both be osboxes.org
 Put all the files from this repo in your Linux file system at /var/www/html/
 
 You may need to open permissions to copy files there by using this terminal command
+
 $ sudo chmod -R 777 /var/www/html/
 
 When everything is in place, you open your chrome/firefox browser to the address
-127.0.0.1
+
+https://127.0.0.1
+
 and this will show a functional version of index.html  
 If you simply open index.html directly in the browser not all of the supporting code will work (i.e. JSmol viewers will not function)
 
