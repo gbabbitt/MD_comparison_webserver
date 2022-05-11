@@ -9,6 +9,7 @@ instructions for running this page on your local server goes as follows
 test on localserver
 
 http://127.0.0.1
+or
 http://localhost
 
 after installing local apache server via LAMP or XAMPP stack
