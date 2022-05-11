@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Babbitt Lab at RIT
+Released for free under a Creative Commons Attribution 2.5 License
+
+Title      : DROIDS
+Version    : 5.0
+Released   : 2022
+Description: webserver template
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script src = "http://127.0.0.1/dist/d3.min.js"></script>	
+<script src="http://127.0.0.1/jsmol/JSmol.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>DROIDS 5.0 webserver</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="page">
+	<div id="sidebar" style="background-color: black;">
+		<div><img src="images/chalkprotein.jpg" alt="" width="340" height="220" /></div>
+		<!-- end header -->
+		<div id="login">
+			<h2 class="title1">Reference Protein folder</h2>
+			<form id="form1" method="post" action="#">
+				<fieldset>
+				<label for="inputtext1">enter full path:</label>
+				<input id="inputtext1" type="text" name="inputtext1" value="" />
+				</fieldset>
+			</form>
+		</div>
+		<!-- end menu -->
+		<div id="login">
+			<h2 class="title1" >Query Protein folder</h2>
+			<form id="form1" method="post" action="#">
+				<fieldset>
+				<label for="inputtext2">enter full path:</label>
+				<input id="inputtext2" type="text" name="inputtext2" value="" />
+				</fieldset>
+			</form>
+		</div>
+	<div id="login">
+			<h2 class="title1" >Submit and Analyze</h2>
+			<form id="form1" method="post" action="#">
+				<fieldset>
+				<input id="inputsubmit1" type="submit" name="inputsubmit1" value="submit files" />
+				<input id="inputsubmit2" type="submit" name="inputsubmit2" value="analyze files" />
+				<div></div>
+				<label for="inputtext3">path to ChimeraX.exe (optional):</label>
+				<input id="inputtext3" type="password" name="inputtext3" value="" />
+				<input id="inputsubmit3" type="submit" name="inputsubmit3" value="visualize results -ChimeraX" />
+				</fieldset>
+			</form>
+	  </div>
+	<div id="login">
+			<h2 class="title1" >Instructions - File Prepare</h2>
+			<form id="form1" method="post" action="#">
+				<fieldset>
+				<p style="color:white;">each folder must contain files for</p>
+				<p style="color:white;">(1) structure (.pdb)</p>
+				<p style="color:white;">(2) input coordinates (.inpcrd)</p>
+				<p style="color:white;">(3) topology (.prmtop)</p>
+				<p style="color:white;">(4) trajectory (.nc)</p>
+				</fieldset>
+			</form>
+	  </div>
+	
+	</div>
+	<!-- end sidebar -->
+	<div id="content">
+		<div><img src="images/chalkboard.jpg" alt="" width="1140" height="220" /></div>
+		<div class="boxed">
+			<h1 class="title2">DROIDS 5.0 - site-wise divergence metric for comparing protein dynamics</h1>
+			<p><strong>DROIDS 5.0</strong> is a free software from the Babbitt Lab at the Rochester Institute of Technology <a href="https://people.rit.edu/gabsbi/">Lab Website</a> released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution 2.5 License</a>. It is free to use for commercial or personal use. We only ask that you cite us when you publish. For more details see our <a href="https://gbabbitt.github.io/DROIDS-4.0-comparative-protein-dynamics/">GitHub Pages</a><em>  Enjoy :)</em></p>
+			<h3>What does it do?</h3>
+			<p>DROIDS software samples atom fluctuations and correlations from your MD runs to build feature vectors for machine learning at every amino acid site.
+			It then applies Gaussian kernel process machine learning and reproducing kernel Hilbert space to define the maximum mean discrepancy (i.e. feature distance)
+			between the molecular dynamics of the comparative functional states of your reference and query (e.g. bound vs. unbound protein, mutated vs. wildtype protein etc.).
+			Divergence metrics also describe the differences in the site-wise statistical distributions of atom fluctuations and are color-mapped to the reference protein.
+			A two sample statistical test corrected for false discovery rate is employed to identify where the site-wise dynamics of these protein functional states differ.
+			The dynamics shown in the viewers are a short trajectory that is filtered to emphasize the divergence and MMD that characterize the difference in the two protein states that are compared. 
+			The results can be also optionally be mapped to protein structure in UCSF ChimeraX. </p>
+		<h3>Please cite the following.....................................................................our perspective</h3>
+		   <button onClick="document.location.href = 'https://www.sciencedirect.com/science/article/pii/S0006349518301462'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2018</button>
+		   <button onClick="document.location.href = 'https://www.sciencedirect.com/science/article/pii/S0006349519343905'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2020</button>
+		   <button onClick="document.location.href = 'https://www.sciencedirect.com/science/article/pii/S2666166722000740'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2022</button>
+		   <button onClick="document.location.href = 'https://www.sciencedirect.com/science/article/pii/S0378111915015413'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2016</button>
+			
+		<h3></h3>
+		<h3>Load some pre-calculated examples</h3>
+		<h3></h3>
+		  <button onClick="myExamplePlot1(); myExample1();" style="padding: 16px; background-color: darkgreen; color:aliceblue; border-radius: 4px;font-size: 14px">e.g. DNA / TATA binding protein</button>
+		  <button onClick="myExamplePlot2(); myExample2();" style="padding: 16px; background-color: darkred; color:aliceblue; border-radius: 4px;font-size: 14px">e.g. SARS-CoV-2 / ACE2 </button>
+		  <button onClick="myExamplePlot3(); myExample3()" style="padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 14px">e.g. sorafenib / B-Raf kinase </button>
+		<h3>from these published works</h3>
+		   <button onClick="document.location.href = 'https://www.sciencedirect.com/science/article/pii/S0006349519343905'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2020</button>
+		   <button onClick="document.location.href = 'https://www.tandfonline.com/doi/full/10.1080/07391102.2021.1953604'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2021</button>
+		   <button onClick="document.location.href = 'https://www.tandfonline.com/doi/abs/10.1080/07391102.2020.1815578'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2020</button>
+		
+		</div>
+		<div class="boxed orange">
+			<div class="col-one">
+				<h2 class="title3">Query Protein Structure</h2>
+					<div id="view1"></div>
+				</div>
+			<div class="col-two">
+				<h2 class="title3">Reference Protein Structure</h2>
+				<div id="view2"></div>
+			</div>
+			<div style="clear: both;">&nbsp;</div>
+		</div>
+		<h3>-mapping KL divergence/significance in dynamics </h3>
+		<div class="boxed orange">
+			<div class="col-one">
+				<h2 class="title3">KL (blue=dampened, red=amplified)</h2>
+				<div id="view3"></div>
+			</div>
+			<div class="col-two">
+				<h2 class="title3">P value significance (black=ns, red=signif)</h2>
+				<div id="view4"></div>
+			</div>
+			<div style="clear: both;">&nbsp;</div>
+			</div>
+		<h3>-site-wise divergence/significance to changes in dynamics </h3>
+		 
+		 
+		    <div>KL divergence CHART</div>
+		    <div id='myPlot1'><!-- Plotly chart will be drawn inside this DIV --></div>
+		    <div>d and p value CHART</div>
+		    <div id='myPlot2'><!-- Plotly chart will be drawn inside this DIV --></div>
+			   <div>KL flux CHART</div>
+		    <div id='myPlot3'><!-- Plotly chart will be drawn inside this DIV --></div>
+		  <div></div>
+		<button onClick="document.location.href = 'index.html'" style="padding: 16px; background-color: darkred; color:white; border-radius: 4px; font-size: 14px;">return to home page</button>
+		
+		<div></div>		
+				
+ </div>
+	</div>
+</body>
+ <!-- end content -->
+<!-- end page -->
+
+<!-- Footer Scripts
+	=============================================
+	JSmol panels
+	-->
+	
+<script>
+Jmol._isAsync = false;
+Jmol.setDocument(0);
+const Info = {
+  width: "100%",
+  height: "100%",
+  use: "HTML5",
+  j2sPath: "http://127.0.0.1/jsmol/j2s/",
+  script: "set antialiasDisplay; set zoomHeight true;",
+  serverURL: "http://127.0.0.1/jsmol/php/jsmol.php",
+  disableJ2SLoadMonitor: true,
+  disableInitialConsole: true
+};
+
+Jmol.getApplet("jmolview1", Info);
+Jmol.getApplet("jmolview2", Info);
+Jmol.getApplet("jmolview3", Info);
+Jmol.getApplet("jmolview4", Info);
+
+
+function myExample1() {
+	Jmol.script(jmolview1, "load /my_examples/1cdw/1cdw_boundREDUCED.pdb");
+	Jmol.script(jmolview1, "rotate");
+	Jmol.script(jmolview1, "background black");
+	Jmol.script(jmolview1, "ribbon ONLY");
+	Jmol.script(jmolview2, "load /my_examples/1cdw/1cdw_unboundREDUCED.pdb");
+	Jmol.script(jmolview2, "rotate");
+	Jmol.script(jmolview2, "background black");
+	Jmol.script(jmolview2, "ribbon ONLY");
+	
+	Jmol.script(jmolview3, "load /my_examples/1cdw/1cdw_boundREDUCED.pdb");
+	Jmol.script(jmolview3, "rotate");
+	Jmol.script(jmolview3, "background gray");
+	Jmol.script(jmolview3, "ribbon ONLY");
+	Jmol.script(jmolview3, "select :A");
+	Jmol.script(jmolview3, "{*}.property_KL = load('/my_examples/1cdw/KL.dat')");
+	Jmol.script(jmolview3, "isosurface sasurface color range -3 3 colorscheme bwr MAP property_KL");
+	Jmol.script(jmolview3, "color isosurface translucent");
+	Jmol.script(jmolview3, "select :B");
+	Jmol.script(jmolview3, "color orange");
+	Jmol.script(jmolview3, "select :C");
+	Jmol.script(jmolview3, "color orange");
+	Jmol.script(jmolview3, "DATA clear");
+	Jmol.script(jmolview3, "end property_KL");
+	
+	Jmol.script(jmolview4, "load /my_examples/1cdw/1cdw_boundREDUCED.pdb");
+	Jmol.script(jmolview4, "rotate");
+	Jmol.script(jmolview4, "background gray");
+	Jmol.script(jmolview4, "ribbon ONLY");
+	Jmol.script(jmolview4, "select :A");
+	Jmol.script(jmolview4, "{*}.property_P = load('/my_examples/1cdw/P.dat')");
+	Jmol.script(jmolview4, "isosurface sasurface color range 0 1 color red to black 50 MAP property_P");
+	Jmol.script(jmolview4, "color isosurface translucent");
+	Jmol.script(jmolview4, "select :B");
+	Jmol.script(jmolview4, "color orange");
+	Jmol.script(jmolview4, "select :C");
+	Jmol.script(jmolview4, "color orange");
+	Jmol.script(jmolview4, "DATA clear");
+	Jmol.script(jmolview4, "end property_P");
+	
+	Jmol.script(jmolview5, "load /my_examples/1cdw/1cdw_boundREDUCED.pdb");
+	Jmol.script(jmolview5, "rotate");
+	Jmol.script(jmolview5, "background black");
+	Jmol.script(jmolview5, "dots ONLY");
+	Jmol.script(jmolview5, "color dots white");
+	Jmol.script(jmolview6, "load /my_examples/1cdw/1cdw_boundREDUCED.pdb");
+	Jmol.script(jmolview6, "rotate");
+	Jmol.script(jmolview6, "background black");
+	Jmol.script(jmolview6, "dots ONLY");
+	Jmol.script(jmolview6, "color dots white");
+	
+	}
+function myExample2() {
+ Jmol.script(jmolview1, "load /my_examples/6vw1/6vw1_boundREDUCED.pdb");
+	Jmol.script(jmolview1, "rotate");
+	Jmol.script(jmolview1, "background black");
+	Jmol.script(jmolview1, "ribbon ONLY");
+	Jmol.script(jmolview1, "select 597-789");
+	Jmol.script(jmolview1, "color red");
+ Jmol.script(jmolview2, "load /my_examples/6vw1/6vw1_unboundREDUCED.pdb");
+	Jmol.script(jmolview2, "rotate");
+	Jmol.script(jmolview2, "background black");
+	Jmol.script(jmolview2, "ribbon ONLY");
+	
+	Jmol.script(jmolview3, "load /my_examples/6vw1/6vw1_boundREDUCED.pdb");
+	Jmol.script(jmolview3, "rotate");
+	Jmol.script(jmolview3, "background gray");
+	Jmol.script(jmolview3, "ribbon ONLY");
+	Jmol.script(jmolview3, "select 1-596");
+	Jmol.script(jmolview3, "{*}.property_KL = load('/my_examples/6vw1/KL.dat')");
+	Jmol.script(jmolview3, "isosurface sasurface color range -2 2 colorscheme bwr MAP property_KL");
+	Jmol.script(jmolview3, "color isosurface translucent");
+	Jmol.script(jmolview3, "select 597-789");
+	Jmol.script(jmolview3, "color red");
+	Jmol.script(jmolview3, "DATA clear");
+	Jmol.script(jmolview3, "end property_KL");
+	
+	Jmol.script(jmolview4, "load /my_examples/6vw1/6vw1_boundREDUCED.pdb");
+	Jmol.script(jmolview4, "rotate");
+	Jmol.script(jmolview4, "background gray");
+	Jmol.script(jmolview4, "ribbon ONLY");
+	Jmol.script(jmolview4, "select 1-596");
+	Jmol.script(jmolview4, "{*}.property_P = load('/my_examples/6vw1/P.dat')");
+	Jmol.script(jmolview4, "isosurface sasurface color range 0 1 color red to black 50 MAP property_P");
+	Jmol.script(jmolview4, "color isosurface translucent");
+	Jmol.script(jmolview4, "select 597-789");
+	Jmol.script(jmolview4, "color red");
+	Jmol.script(jmolview4, "DATA clear");
+	Jmol.script(jmolview4, "end property_P");
+		
+	Jmol.script(jmolview5, "load /my_examples/6vw1/6vw1_boundREDUCED.pdb");
+	Jmol.script(jmolview5, "rotate");
+	Jmol.script(jmolview5, "background black");
+	Jmol.script(jmolview5, "dots ONLY");
+	Jmol.script(jmolview5, "color dots white");
+	Jmol.script(jmolview6, "load /my_examples/6vw1/6vw1_boundREDUCED.pdb");
+	Jmol.script(jmolview6, "rotate");
+	Jmol.script(jmolview6, "background black");
+	Jmol.script(jmolview6, "dots ONLY");
+	Jmol.script(jmolview6, "color dots white");
+}
+function myExample3() {
+	Jmol.script(jmolview1, "load /my_examples/1uwh/1uwh_boundREDUCED.pdb");
+	Jmol.script(jmolview1, "rotate");
+	Jmol.script(jmolview1, "background black");
+	Jmol.script(jmolview1, "delete HOH");
+	Jmol.script(jmolview1, "select 1-276");
+	Jmol.script(jmolview1, "ribbon ONLY");
+	Jmol.script(jmolview1, "select 277");
+	Jmol.script(jmolview1, "color lime");
+	Jmol.script(jmolview1, "spacefill ON");
+	Jmol.script(jmolview2, "load /my_examples/1uwh/1uwh_unboundREDUCED.pdb");
+	Jmol.script(jmolview2, "rotate");
+	Jmol.script(jmolview2, "background black");
+	Jmol.script(jmolview2, "ribbon ONLY");
+	
+	Jmol.script(jmolview3, "load /my_examples/1uwh/1uwh_boundREDUCED.pdb");
+	Jmol.script(jmolview3, "rotate");
+	Jmol.script(jmolview3, "background gray");
+	Jmol.script(jmolview3, "select 1-276");
+	Jmol.script(jmolview3, "ribbon ONLY");
+	Jmol.script(jmolview3, "{*}.property_KL = load('/my_examples/1uwh/KL.dat')");
+	Jmol.script(jmolview3, "isosurface sasurface color range -0.5 0.5 colorscheme bwr MAP property_KL");
+	Jmol.script(jmolview3, "color isosurface translucent");
+	Jmol.script(jmolview3, "select 277");
+	Jmol.script(jmolview3, "color lime");
+	Jmol.script(jmolview3, "spacefill ON");
+	Jmol.script(jmolview3, "DATA clear");
+	Jmol.script(jmolview3, "end property_KL");
+	
+	Jmol.script(jmolview4, "load /my_examples/1uwh/1uwh_boundREDUCED.pdb");
+	Jmol.script(jmolview4, "rotate");
+	Jmol.script(jmolview4, "background gray");
+	Jmol.script(jmolview4, "select 1-276");
+	Jmol.script(jmolview4, "ribbon ONLY");
+	Jmol.script(jmolview4, "{*}.property_P = load('/my_examples/1uwh/P.dat')");
+	Jmol.script(jmolview4, "isosurface sasurface color range 0 1 color red to black 50 MAP property_P");
+	Jmol.script(jmolview4, "color isosurface translucent");
+	Jmol.script(jmolview4, "select 277");
+	Jmol.script(jmolview4, "color lime");
+	Jmol.script(jmolview4, "spacefill ON");
+	Jmol.script(jmolview4, "DATA clear");
+	Jmol.script(jmolview4, "end property_P");
+		
+	Jmol.script(jmolview5, "load /my_examples/1uwh/1uwh_boundREDUCED.pdb");
+	Jmol.script(jmolview5, "rotate");
+	Jmol.script(jmolview5, "background black");
+	Jmol.script(jmolview5, "dots ONLY");
+	Jmol.script(jmolview5, "color dots white");
+	Jmol.script(jmolview6, "load /my_examples/1uwh/1uwh_boundREDUCED.pdb");
+	Jmol.script(jmolview6, "rotate");
+	Jmol.script(jmolview6, "background black");
+	Jmol.script(jmolview6, "dots ONLY");
+	Jmol.script(jmolview6, "color dots white");
+}
+
+$("#view1").html(Jmol.getAppletHtml(jmolview1));
+$("#view2").html(Jmol.getAppletHtml(jmolview2));
+$("#view3").html(Jmol.getAppletHtml(jmolview3));
+$("#view4").html(Jmol.getAppletHtml(jmolview4));
+
+</script>
+
+<!--=============================================
+plotly.js plot -  KL to avg difference transition bar graph
+	-->
+<script>
+
+function myExamplePlot1() {
+mypath = "/my_examples/1cdw/1cdwRESULTS.csv";
+
+d3.csv(mypath, function(err, rows){
+
+function unpack(rows, key) {
+  return rows.map(function(row) {
+    return row[key];
+  });
+}
+
+var trace1 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'KLdivergence'),
+  high: unpack(rows, 'zero_line'),
+  low: unpack(rows, 'KLdivergence'),
+  open: unpack(rows, 'zero_line'),
+  				
+  // cutomise colors
+  increasing: {line: {color: 'red'}},
+  decreasing: {line: {color: 'blue'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data1 = [trace1];
+
+var layout1 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot1', data1, layout1);
+
+
+
+var trace2 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'd_color'),
+  high: unpack(rows, 'd_value'),
+  low: unpack(rows, 'd_color'),
+  open: unpack(rows, 'zero_line'),
+  				
+  // cutomise colors
+  increasing: {line: {color: 'orange'}},
+  decreasing: {line: {color: 'black'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data2 = [trace2];
+
+var layout2 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot2', data2, layout2);
+
+
+var trace3 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'flux_query_avg'),
+  high: unpack(rows, 'KL_upper'),
+  low: unpack(rows, 'KL_lower'),
+  open: unpack(rows, 'flux_ref_avg'),
+  
+								
+  // cutomise colors
+  increasing: {line: {color: 'blue'}},
+  decreasing: {line: {color: 'red'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data3 = [trace3];
+
+var layout3 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot3', data3, layout3);
+});
+}
+
+
+
+function myExamplePlot2() {
+mypath = "/my_examples/6vw1/6vw1RESULTS.csv";
+
+d3.csv(mypath, function(err, rows){
+
+function unpack(rows, key) {
+  return rows.map(function(row) {
+    return row[key];
+  });
+}
+
+var trace1 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'KLdivergence'),
+  high: unpack(rows, 'zero_line'),
+  low: unpack(rows, 'KLdivergence'),
+  open: unpack(rows, 'zero_line'),
+  				
+  // cutomise colors
+  increasing: {line: {color: 'red'}},
+  decreasing: {line: {color: 'blue'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data1 = [trace1];
+
+var layout1 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot1', data1, layout1);
+
+
+
+var trace2 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'd_color'),
+  high: unpack(rows, 'd_value'),
+  low: unpack(rows, 'd_color'),
+  open: unpack(rows, 'zero_line'),
+  				
+  // cutomise colors
+  increasing: {line: {color: 'orange'}},
+  decreasing: {line: {color: 'black'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data2 = [trace2];
+
+var layout2 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot2', data2, layout2);
+
+
+var trace3 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'flux_query_avg'),
+  high: unpack(rows, 'KL_upper'),
+  low: unpack(rows, 'KL_lower'),
+  open: unpack(rows, 'flux_ref_avg'),
+  
+								
+  // cutomise colors
+  increasing: {line: {color: 'red'}},
+  decreasing: {line: {color: 'blue'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data3 = [trace3];
+
+var layout3 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot3', data3, layout3);
+});
+}
+
+
+
+function myExamplePlot3() {
+mypath = "/my_examples/1uwh/1uwhRESULTS.csv";
+
+d3.csv(mypath, function(err, rows){
+
+function unpack(rows, key) {
+  return rows.map(function(row) {
+    return row[key];
+  });
+}
+
+var trace1 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'KLdivergence'),
+  high: unpack(rows, 'zero_line'),
+  low: unpack(rows, 'KLdivergence'),
+  open: unpack(rows, 'zero_line'),
+  				
+  // cutomise colors
+  increasing: {line: {color: 'red'}},
+  decreasing: {line: {color: 'blue'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data1 = [trace1];
+
+var layout1 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot1', data1, layout1);
+
+
+
+var trace2 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'd_color'),
+  high: unpack(rows, 'd_value'),
+  low: unpack(rows, 'd_color'),
+  open: unpack(rows, 'zero_line'),
+  				
+  // cutomise colors
+  increasing: {line: {color: 'orange'}},
+  decreasing: {line: {color: 'black'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data2 = [trace2];
+
+var layout2 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot2', data2, layout2);
+
+
+var trace3 = {
+  x: unpack(rows, 'pos_ref'),
+  close: unpack(rows, 'flux_query_avg'),
+  high: unpack(rows, 'KL_upper'),
+  low: unpack(rows, 'KL_lower'),
+  open: unpack(rows, 'flux_ref_avg'),
+  
+								
+  // cutomise colors
+  increasing: {line: {color: 'red'}},
+  decreasing: {line: {color: 'blue'}},
+
+  type: 'candlestick',
+  xaxis: 'x', 
+  yaxis: 'y',
+		
+};
+
+var data3 = [trace3];
+
+var layout3 = {
+  dragmode: 'zoom',
+  showlegend: false,
+  xaxis: {
+    autorange: true,
+    title: 'position on amino acid sequence',
+	 rangeselector: {
+        x: 0,
+        y: 1.2,
+        xanchor: 'left',
+        font: {size:8},
+        
+      }
+  },
+  yaxis: {
+    autorange: true,
+  }
+};
+
+Plotly.newPlot('myPlot3', data3, layout3);
+});
+}
+
+
+
+</script>
+
+
+<!--	=============================================	-->
+
+
