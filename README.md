@@ -20,7 +20,8 @@ for Linux Mint simply install with the following terminal command
 
 $ sudo apt-get install apache2
 
-NOTE: This webserver will eventuall run on our Linux server, so it is simpler to develop and test it on a VirtualBox VM with Linux image (IF YOU DONT HAVE ACCESS TO A LINUX OS)
+NOTE: This webserver will eventuall run on our Linux server, so it is simpler to develop and test it on a VirtualBox VM with Linux image 
+(IF YOU DONT HAVE ACCESS TO A LINUX OS)
 
 install Oracle VirtualBox and follow its instructions to build your VM using a Linux Mint .vdi file from osboxes.org
 https://www.virtualbox.org/
