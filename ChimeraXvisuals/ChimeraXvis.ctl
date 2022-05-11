@@ -1,0 +1,12 @@
+model	#1
+structure	ChimeraXvis/reference.pdb
+structureADD	ChimeraXvis/query.pdb
+attr_file	ChimeraXvis/attributeKL.dat
+attr	deltaKL
+palette	bluered
+length	282
+minval	-0.2129059
+maxval	0.2129059
+lighting	simple
+transparency	50
+background	gray
