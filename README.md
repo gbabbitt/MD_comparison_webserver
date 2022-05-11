@@ -4,7 +4,7 @@ NOTE: upon download go inside jsmol folder and unzip the following files
 jsme.zip
 j2s.zip
 
-instructions for installing ds.js follows
+instructions for running this page on your local server goes as follows
 
 test on localserver
 
@@ -12,83 +12,33 @@ http://127.0.0.1
 http://localhost
 
 after installing local apache server via LAMP or XAMPP stack
+instructions for installing LAMP or XXAMP stack is found here
 https://www.alphr.com/set-up-local-web-server/
 
-# D3: Data-Driven Documents
+NOTE: This webserver will run on Linux, so it is simpler to develop and test it on a VirtualBox VM with Linux image (IF YOU DONT HAVE ACCESS TO A LINUX OS)
 
-<a href="https://d3js.org"><img src="https://d3js.org/logo.svg" align="left" hspace="10" vspace="6"></a>
+install Oracle VirtualBox and follow its instructions to build your VM using a Linux Mint .vdi file from osboxes.org
+https://www.virtualbox.org/
+https://www.osboxes.org/
 
-**D3** (or **D3.js**) is a JavaScript library for visualizing data using web standards. D3 helps you bring data to life using SVG, Canvas and HTML. D3 combines powerful visualization and interaction techniques with a data-driven approach to DOM manipulation, giving you the full capabilities of modern browsers and the freedom to design the right visual interface for your data.
+the user and password will both be osboxes.org
 
-## Resources
+Put all the files from this repo in your Linux file system at /var/www/html/
 
-* [Introduction](https://observablehq.com/@d3/learn-d3)
-* [API Reference](https://github.com/d3/d3/blob/master/API.md)
-* [Releases](https://github.com/d3/d3/releases)
-* [Examples](https://observablehq.com/@d3/gallery)
-* [Wiki](https://github.com/d3/d3/wiki)
+You may need to open permissions to copy files there by using this terminal command
+$ sudo chmod -R 777 /var/www/html/
 
-## Installing
+When everything is in place, you open your chrome/firefox browser to the address
+127.0.0.1
+and this will show a functional version of index.html  
+If you simply open index.html directly in the browser not all of the supporting code will work (i.e. JSmol viewers will not function)
 
-If you use npm, `npm install d3`. You can also download the [latest release on GitHub](https://github.com/d3/d3/releases/latest). For vanilla HTML in modern browsers, import D3 from Skypack:
+The plots in this site are using ploty.js running on d3.js  (more information found below)
 
-```html
-<script type="module">
+https://plotly.com/javascript/
 
-import * as d3 from "https://cdn.skypack.dev/d3@7";
+Our diveregnce plots are modified candlestick plots from ploty.js library
 
-const div = d3.selectAll("div");
+The three 'example' buttons should be workng and open results using plotly and JSmol, but at this stage all the left hand side of the page is not yet built. 
 
-</script>
-```
 
-For legacy environments, you can load D3’s UMD bundle from an npm-based CDN such as jsDelivr; a `d3` global is exported:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script>
-
-const div = d3.selectAll("div");
-
-</script>
-```
-
-You can also use the standalone D3 microlibraries. For example, [d3-selection](https://github.com/d3/d3-selection):
-
-```html
-<script type="module">
-
-import {selectAll} from "https://cdn.skypack.dev/d3-selection@3";
-
-const div = selectAll("div");
-
-</script>
-```
-
-D3 is written using [ES2015 modules](http://www.2ality.com/2014/09/es6-modules-final.html). Create a custom bundle using Rollup, Webpack, or your preferred bundler. To import D3 into an ES2015 application, either import specific symbols from specific D3 modules:
-
-```js
-import {scaleLinear} from "d3-scale";
-```
-
-Or import everything into a namespace (here, `d3`):
-
-```js
-import * as d3 from "d3";
-```
-
-Or using dynamic import:
-
-```js
-const d3 = await import("d3");
-```
-
-You can also import individual modules and combine them into a `d3` object using [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign):
-
-```js
-const d3 = await Promise.all([
-  import("d3-format"),
-  import("d3-geo"),
-  import("d3-geo-projection")
-]).then(d3 => Object.assign({}, ...d3));
-```
