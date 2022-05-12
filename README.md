@@ -73,7 +73,7 @@ Our divergence plots are modified candlestick plots from ploty.js library
 
 #######################################################################
 
-After setting up a local server on Win using XAMPP
+After setting up a local server on Win/Mac using XAMPP
 
 Open the XAMPP Control panel and start the apache server (check for any error messages on startup at this panel)
 
