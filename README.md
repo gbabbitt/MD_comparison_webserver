@@ -106,6 +106,9 @@ We need the following tasks completed.
 2. We need to explore and test the WASM and CPPTRAJ prototype code for resampling atom fluctuation on the input files
 3. We need to plug this into the client-side buttons and write a backend to then display results in place of the 3 examples
 4. We need need to optimize for speed.
+5. maybe build some interactive ChimeraX features for enabling user to custom and save molecular viewing images and movies beyond JSmol settings
+
+######################################################################
 
 Thank you ....Dr B
 
