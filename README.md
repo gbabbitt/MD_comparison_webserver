@@ -20,8 +20,13 @@ for Linux Mint simply install with the following terminal command
 
 $ sudo apt-get install apache2
 
-NOTE: This webserver will eventually run on our Linux server, so it is simpler to develop and test it on a Linux Mint laptop. If you have an older unused laptop lying around, you should convert its OS to Linux Mint and use it as a machine for code development. You might also try VirtualBox VM with Linux image (IF YOU DONT HAVE ACCESS TO A LINUX OS ANY OTHER WAY), however I find that it can be very difficult to get client-side graphics to appear/function properly over the scaled graphics on a VM desktop. 
+NOTE: This webserver will eventually run on our Linux server, so it is simpler to develop and test it on a Linux Mint laptop. If you have an older unused laptop lying around, you should convert its OS to Linux Mint and use it as a machine for code development. You might also try VirtualBox Virtual Machine (VM) with Linux image (IF YOU DONT HAVE ACCESS TO A LINUX OS ANY OTHER WAY), however I find that it can be very difficult to get client-side graphics to appear/function properly over the scaled graphics on a VM desktop. 
 
+Instructions for a new 'bare metal' install
+https://www.linuxmint.com/
+
+
+Instructions for VM install
 install Oracle VirtualBox and follow its instructions to build your VM using a Linux Mint .vdi file from osboxes.org
 https://www.virtualbox.org/
 and
