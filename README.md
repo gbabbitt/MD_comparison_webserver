@@ -46,9 +46,13 @@ the user and password will both be osboxes.org
 
 ###################################################################
 
-After setting up local server: 
+After setting up local server on Linux: 
 
-Download, unzip and put all the files from this GitHub project repo in your Linux file system at /var/www/html/
+Download, unzip and put all the files from this GitHub project repo in your Linux file system at /var/www/html/ 
+
+NOTE: upon download go inside jsmol folder and unzip the following files
+jsme.zip
+j2s.zip
 
 You may need to open permissions to copy files there by using this terminal command
 
@@ -66,6 +70,31 @@ The plots in this site are using ploty.js running on d3.js  (more information fo
 https://plotly.com/javascript/
 
 Our divergence plots are modified candlestick plots from ploty.js library
+
+#######################################################################
+
+After setting up a local server on Win using XAMPP
+
+Open the XAMPP Control panel and start the apache server (check for any error messages on startup at this panel)
+
+Download, unzip and put all the files from this GitHub project repo in your Windows file system at /XAMPP/htdocs/ 
+
+NOTE: upon download go inside jsmol folder and unzip the following files
+jsme.zip
+j2s.zip
+
+to see your XAMPP startup page (to check proper XAMPP install)
+
+https://127.0.0.1
+
+to see your project
+
+https://127.0.0.1/index.html
+
+or
+
+https://localhost/index.html
+
 
 #######################################################################
 
