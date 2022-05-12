@@ -107,6 +107,7 @@ We need the following tasks completed.
 3. We need to plug this into the client-side buttons and write a backend to then display results in place of the 3 examples
 4. We need need to optimize for speed.
 5. maybe build some interactive ChimeraX features for enabling user to custom and save molecular viewing images and movies beyond JSmol settings
+6. We need to do a bit more work on client-side aesthetics and design.
 
 ######################################################################
 
