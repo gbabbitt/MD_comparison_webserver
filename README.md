@@ -1,5 +1,7 @@
 DROIDS comparative protein dynamics webserver prototype
 
+-----------------------------------------------------------------------------------
+
 NOTE: upon download go inside jsmol folder and unzip the following files
 jsme.zip
 j2s.zip
