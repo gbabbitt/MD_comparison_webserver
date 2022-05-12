@@ -6,7 +6,11 @@ j2s.zip
 
 instructions for running this page on your local server goes as follows
 
-test on localserver
+#####################################################################################
+
+WELCOME to our summer 2022 webserver project
+
+to test on localserver
 
 http://127.0.0.1
 or
@@ -16,17 +20,23 @@ after installing local apache server via LAMP or XAMPP stack
 instructions for installing LAMP or XXAMP stack is found here
 https://www.alphr.com/set-up-local-web-server/
 
-for Linux Mint simply install with the following terminal command
+######################################################################################
+
+for Linux Mint simply install LAMP server with the following terminal command
 
 $ sudo apt-get install apache2
 
-NOTE: This webserver will eventually run on our Linux server, so it is simpler to develop and test it on a Linux Mint laptop. If you have an older unused laptop lying around, you should convert its OS to Linux Mint and use it as a machine for code development. You might also try VirtualBox Virtual Machine (VM) with Linux image (IF YOU DONT HAVE ACCESS TO A LINUX OS ANY OTHER WAY), however I find that it can be very difficult to get client-side graphics to appear/function properly over the scaled graphics on a VM desktop. 
+NOTE: This webserver will eventually run on our Linux server, so it is simpler to develop and test it on a Linux Mint laptop. If you have an older unused laptop lying around, you should convert its OS to Linux Mint and use it as a machine for code development. You might also try VirtualBox Virtual Machine (VM) with Linux image (IF YOU DONT HAVE ACCESS TO A LINUX OS ANY OTHER WAY), however I find that it can be very difficult to get client-side graphics to appear/function properly over the scaled graphics on a VM desktop.  If you do use Windows or Mac for the project, we recommend setting up a XAMPP server instead of a linux LAMP server.
 
-Instructions for a new 'bare metal' install
+Instructions for XAMPP server setup
+https://www.apachefriends.org/index.html
+
+
+Instructions for a new 'bare metal' Linux install
 https://www.linuxmint.com/
 
 
-Instructions for VM install
+Instructions for VM install (Linux running over existing operating systems)
 install Oracle VirtualBox and follow its instructions to build your VM using a Linux Mint .vdi file from osboxes.org
 https://www.virtualbox.org/
 and
@@ -34,7 +44,11 @@ https://www.osboxes.org/
 
 the user and password will both be osboxes.org
 
-Put all the files from this repo in your Linux file system at /var/www/html/
+###################################################################
+
+After setting up local server: 
+
+Download, unzip and put all the files from this GitHub project repo in your Linux file system at /var/www/html/
 
 You may need to open permissions to copy files there by using this terminal command
 
@@ -53,6 +67,17 @@ https://plotly.com/javascript/
 
 Our divergence plots are modified candlestick plots from ploty.js library
 
+#######################################################################
+
 The three 'example' buttons should be workng and open results using plotly and JSmol, but at this stage all the left hand side of the page is not yet built. 
+
+We need the following tasks completed.
+
+1. For those who have access to Amber20 molecular dynamics, we need to generate two long .nc files to compare.
+2. We need to explore and test the WASM and CPPTRAJ prototype code for resampling atom fluctuation on the input files
+3. We need to plug this into the client-side buttons and write a backend to then display results in place of the 3 examples
+4. We need need to optimize for speed.
+
+Thank you ....Dr B
 
 
