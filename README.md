@@ -20,8 +20,7 @@ for Linux Mint simply install with the following terminal command
 
 $ sudo apt-get install apache2
 
-NOTE: This webserver will eventuall run on our Linux server, so it is simpler to develop and test it on a VirtualBox VM with Linux image 
-(IF YOU DONT HAVE ACCESS TO A LINUX OS)
+NOTE: This webserver will eventually run on our Linux server, so it is simpler to develop and test it on a Linux Mint laptop. If you have an older unused laptop lying around, you should convert its OS to Linux Mint and use it as a machine for code development. You might also try VirtualBox VM with Linux image (IF YOU DONT HAVE ACCESS TO A LINUX OS ANY OTHER WAY), however I find that it can be very difficult to get client-side graphics to appear/function properly over the scaled graphics on a VM desktop. 
 
 install Oracle VirtualBox and follow its instructions to build your VM using a Linux Mint .vdi file from osboxes.org
 https://www.virtualbox.org/
@@ -47,7 +46,7 @@ The plots in this site are using ploty.js running on d3.js  (more information fo
 
 https://plotly.com/javascript/
 
-Our diveregnce plots are modified candlestick plots from ploty.js library
+Our divergence plots are modified candlestick plots from ploty.js library
 
 The three 'example' buttons should be workng and open results using plotly and JSmol, but at this stage all the left hand side of the page is not yet built. 
 
