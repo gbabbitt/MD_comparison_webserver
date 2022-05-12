@@ -104,10 +104,18 @@ We need the following tasks completed.
 
 1. For those who have access to Amber20 molecular dynamics, we need to generate two long .nc files to compare.
 2. We need to explore and test the WASM and CPPTRAJ prototype code for resampling atom fluctuation on the input files
-3. We need to plug this into the client-side buttons and write a backend to then display results in place of the 3 examples
-4. We need need to optimize for speed.
-5. maybe build some interactive ChimeraX features for enabling user to custom and save molecular viewing images and movies beyond JSmol settings
-6. We need to do a bit more work on client-side aesthetics and design.
+3. We need python/R/julia script to compute KL divergence and multiple test-corrected two sample KS tests
+4. We need to plug this into the client-side buttons and write a backend to then display results in place of the 3 examples
+5. We need need to optimize for speed.
+6. maybe build some interactive ChimeraX features for enabling user to custom and save molecular viewing images and movies beyond JSmol settings
+7. We need to do a bit more work on client-side aesthetics and design.
+8. Work on any modifications to our MD simulation GUI pipelines that users can implement for generating trajectory (.nc) files to submit to this webserver.  It will be important to build a Windows based openMM (python) version to allow more potential users to find us. https://openmm.org/
+
+Our existing GUI is here
+
+https://gbabbitt.github.io/amberMDgui/
+
+https://github.com/gbabbitt/amberMDgui
 
 ######################################################################
 
