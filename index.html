@@ -11,7 +11,7 @@ Description: webserver template
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<script src = "http://127.0.0.1/dist/d3.min.js"></script>	
+<script src="http://127.0.0.1/dist/d3.min.js"></script>	
 <script src="http://127.0.0.1/jsmol/JSmol.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
@@ -60,7 +60,7 @@ Description: webserver template
 			</form>
 	  </div>
 	<div id="login">
-			<h2 class="title1" >Instructions - File Prepare</h2>
+			<h2 class="title1" >Instructions - Prepare Files</h2>
 			<form id="form1" method="post" action="#">
 				<fieldset>
 				<p style="color:white;">each folder must contain files for</p>
@@ -71,7 +71,19 @@ Description: webserver template
 				</fieldset>
 			</form>
 	  </div>
-	
+	<div id="login">
+			<h2 class="title1" >Resources - Prepare Files</h2>
+			
+				<fieldset>
+				<p style="color:white;">PROGRAMS for generating MD</p>
+				<p style="color:white;">(1) QwikMD for NAMD users</p>
+				<button onClick="document.location.href = 'http://www.ks.uiuc.edu/Research/qwikmd'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">QwikMD</button>
+		   		<p style="color:white;">(2) amberMDgui for AMBER users</p>
+				<button onClick="document.location.href = 'https://gbabbitt.github.io/amberMDgui'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">amberMDgui</button>
+		   		<p style="color:white;">more at https://ambermd.org/</p>				
+				</fieldset>
+			
+	  </div>
 	</div>
 	<!-- end sidebar -->
 	<div id="content">
@@ -101,9 +113,10 @@ Description: webserver template
 		  <button onClick="myExamplePlot3(); myExample3()" style="padding: 16px; background-color: darkblue; color:aliceblue; border-radius: 4px;font-size: 14px">e.g. sorafenib / B-Raf kinase </button>
 		<h3>from these published works</h3>
 		   <button onClick="document.location.href = 'https://www.sciencedirect.com/science/article/pii/S0006349519343905'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2020</button>
-		   <button onClick="document.location.href = 'https://www.tandfonline.com/doi/full/10.1080/07391102.2021.1953604'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2021</button>
+		   <button onClick="document.location.href = 'https://www.tandfonline.com/doi/full/10.1080/07391102.2021.1953604'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Rynkiewicz et al. 2021</button>
 		   <button onClick="document.location.href = 'https://www.tandfonline.com/doi/abs/10.1080/07391102.2020.1815578'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Babbitt et al. 2020</button>
-		
+		   <button onClick="document.location.href = 'https://www.cell.com/biophysreports/fulltext/S2667-0747(22)00013-1'" style="padding: 16px; background-color: darkgrey; color:black; border-radius: 4px; font-size: 14px;">Rajendran et al. 2022</button>
+				
 		</div>
 		<div class="boxed orange">
 			<div class="col-one">
