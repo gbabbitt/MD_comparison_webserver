@@ -111,8 +111,11 @@ We need the following tasks completed.
 5. We need need to optimize for speed.
 6. maybe build some interactive ChimeraX features for enabling user to custom and save molecular viewing images and movies beyond JSmol settings
 7. We need to do a bit more work on client-side aesthetics and design.
-8. Eventually, we'll add additional webserver pages for the machine learning analyses of functionally conserved dynamics and functionally coordinated dynamics.  The theory for this is outlined in the file Gaussian_process_kernel_learning.docx
-9. Work on any modifications to our MD simulation GUI pipelines that users can implement for generating trajectory (.nc) files to submit to this webserver.  It will be important to build a Windows based openMM (python) version to allow more potential users to find us. https://openmm.org/
+8. Eventually, we'll add additional webserver pages for the machine learning analyses of functionally conserved dynamics and functionally coordinated dynamics.  The theory for this is outlined in the file Gaussian_process_kernel_learning.docx  We'll also use Gaussian kernels for describing differences in dynamics in addition to KL divergence metric.  This measure is called MMD or maximum mean discrepancy.  See julia package
+
+https://github.com/aicenter/IPMeasures.jl
+
+10. Work on any modifications to our MD simulation GUI pipelines that users can implement for generating trajectory (.nc) files to submit to this webserver.  It will be important to build a Windows based openMM (python) version to allow more potential users to find us. https://openmm.org/
 
 Our existing GUI is here
 
