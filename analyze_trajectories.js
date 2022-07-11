@@ -1,9 +1,14 @@
 
-const timesteps = 200;
 var raw_data = null;
 var num_atoms = null;
+var topFileString = null;
+var atomicMasses = null;
 var isTrajIn = false;
 var isTopIn  = false;
+
+
+//something that will determine whether or not to group the calculations by residue
+var byResidue = true
 
 
 
@@ -119,7 +124,18 @@ function single_atom(index, array) {
     return focus;
 }
 
+function fluctByRes(fluctSlice, massSlice) {
+    var n = 0;
+    for (let i = 0; i<fluctSlice.length; i++) {
+        n += fluctSlice[i] * massSlice[i];
+    }
+    var d = 0;
+    for (let i = 0; i<fluctSlice.length; i++) {
+        d += massSlice[i];
+    }
+    return n / d;
 
+}
 
 
 
@@ -135,6 +151,7 @@ function topin(evt) {
     reader.onload = function(event){
         var data = event.target.result;
         data = String(data);
+        topFileString = data
         data = data.split('\n');
         
         
@@ -142,6 +159,8 @@ function topin(evt) {
         num_atoms = parseInt(data[5]);
         console.log("number of atoms: ", num_atoms);
 
+
+        //both a topology (.prmtop) and trajectory (.nc) file is needed for the file to be read
         isTopIn = true;
         if (isTrajIn){
             analyze(raw_data);
@@ -193,48 +212,21 @@ function trajin(evt) {
             document.getElementById("analysis_box").innerHTML = "please upload a topology file";
         }
 
-        /*
-        timestepdata = []
-        for  (i=0; i<timesteps; i++) {
-            timestepdata.push(rowdata.slice(i*num_atoms*3, (i+1)*num_atoms*3))
-        }
-
-        xyz_timestepdata = []
-        timestepdata.forEach(function(e) {
-            step = []
-            for (i=0;i<num_atoms;i++) {
-                step.push(e.slice(i*3,(i+1)*3))
-            }
-            xyz_timestepdata.push(step)
-        });
-
-
-        //shape [timesteps, atoms, 3]
-
-
-        console.log("here is a brief test of the functions in js:")
-        console.log("atomic fluctuation for  atom 0:    ",atomic_fluct(single_atom(0,xyz_timestepdata)));
-        console.log("atomic correlation for atoms 0<->1:",atomic_corr(single_atom(0,xyz_timestepdata), single_atom(1,xyz_timestepdata)))
-        
-        
-
-
-        
-        */
 
     }
     reader.readAsText(file)
 }
-
+function addVec(vec1,vec2) {return vec1.map(function(v, i) {return v + vec2[i];})}
 
 
 function analyze(rowdata) {
     
+    //organize it all
+    timesteps = (rowdata.length / 3.0) / num_atoms
     timestepdata = []
     for  (i=0; i<timesteps; i++) {
         timestepdata.push(rowdata.slice(i*num_atoms*3, (i+1)*num_atoms*3))
     }
-
     xyz_timestepdata = []
     timestepdata.forEach(function(e) {
         step = []
@@ -247,22 +239,56 @@ function analyze(rowdata) {
 
     //xyz_timestepdata shape: [timesteps, atoms, 3]}
 
+
+    //this gets the residue data from the .prmtop file
+    if (byResidue) {
+
+        var parseData = topFileString.split('\n');
+        parseData = parseData[7].split(" ")
+        parseData = parseData.filter(item => !(item==""))
+        
+        const num_residues = parseInt(parseData[1])
+
+
+        //parsing the residue pointer data
+        var residuePointers = topFileString.split("%FLAG RESIDUE_POINTER")
+        residuePointers = residuePointers[1].split("%FLAG BOND_FORCE_CONSTANT")[0].split('\n')
+        residuePointers = residuePointers.slice(2)
+        var resPointerTemp = ""
+        for (let i=0;i<residuePointers.length;i++) {resPointerTemp += residuePointers[i];}
+        residuePointers = resPointerTemp.split(" ")
+        residuePointers = residuePointers.filter(item => !(item==""))
+        console.log(residuePointers);
+
+
+        //this gets the atomic mass data for each atom
+        var massParser = topFileString.split("%FLAG MASS")[1]
+        massParser = massParser.split('%FLAG ATOM_TYPE_INDEX')[0]
+        massParser = massParser.split("\n").slice(2)
+        massParseString = ""
+        for (let i=0;i<massParser.length;i++) {massParseString += massParser[i];}
+        massParser = massParseString.split(" ").filter(item => !(item==""))
+        massParser = massParser.map(function(v, i) {
+            return parseFloat(v)
+          })
+        console.log(massParser)
+        atomicMasses = massParser
+
+        
+    }
+
     
-
-    //sorry if this stuff is a mess, it just does all the calculations, and then prints some of them out on the screen
-
-    var display_output = "calculating atomicfluct for each atom... \n";
-    document.getElementById("analysis_box").innerHTML = display_output
+ 
+    //calculate the atomic fluct value (rmsf) for each atom
+    console.log("calculating atomicfluct...");
     var fluct = [];
     for (let i=0;i<num_atoms;i++) {
         fluct.push(atomic_fluct(single_atom(i,xyz_timestepdata)));
     }
-    display_output += "done... here is the atomicfluct for the first 20 atoms: \n";
-    for (let i=0;i<20;i++){
-        display_output += fluct[i]+"    ";
-    }
-    document.getElementById("analysis_box").innerHTML = display_output;
-    display_output += "calculating atomiccorr for each atom... \n";
+    
+
+    /*
+    console.log("calculating atomiccorr...");
     var corr = [];
     for (let i=0;i<num_atoms;i++) {
         var atom_corr = [];
@@ -272,13 +298,29 @@ function analyze(rowdata) {
         corr.push(atom_corr);
     }
     //corr shape is [num_atoms, num_atoms]
-    display_output += "done... here are the correlations between the first atom, and the 20 nearest to it: \n";
-    for(let i=0;i<20;i++) {
-        display_output+=corr[0][i]+"    ";
-    }
-    document.getElementById("analysis_box").innerHTML = display_output;
-        
+    */
+    
+    console.log("calculating atomicfluct by residue...");
+    if (byResidue) {
+        fluctByResidue = [];
 
+        //for each atom, group the fluct values together, and calculate the 'by residue' fluct
+        for (let i=0; i<residuePointers.length; i++) {
+            let start = parseInt(residuePointers[i])-1;
+            var end;
+            if (i==residuePointers.length-1) {
+                end = num_atoms;
+            } else {
+                end = parseInt(residuePointers[i+1])-1;
+            }
+
+            let fbr = fluctByRes(fluct.slice(start, end), atomicMasses.slice(start, end))            
+            fluctByResidue.push(fbr);
+        }
+        console.log("atomicfluct by residue: [" + fluctByResidue + "]");
+    }
+   
+   
 }
 
 
